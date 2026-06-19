@@ -1,1 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Surprise for Mummy</title>
+    <style>
+        body { margin: 0; background: #050505; color: #fff; font-family: 'Playfair Display', serif; overflow: hidden; }
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 10; background: rgba(0,0,0,0.85); }
+        h1 { font-size: 3rem; color: #FFD700; text-shadow: 0 0 20px #FFD700; margin-bottom: 20px; }
+        button { background: transparent; border: 2px solid #FFD700; color: #FFD700; padding: 20px 40px; cursor: pointer; font-size: 1.5rem; transition: 0.5s; border-radius: 50px; }
+        button:hover { background: #FFD700; color: #000; box-shadow: 0 0 30px #FFD700; }
+        #message { position: absolute; top: 40%; width: 80%; text-align: center; font-size: 2.5rem; opacity: 0; transition: opacity 3s; color: #FFD700; z-index: 5; }
+        canvas { position: absolute; top: 0; left: 0; z-index: 1; }
+    </style>
+</head>
+<body>
+
+    <div id="overlay">
+        <h1>Mummy, ek khaas tohfa aapke liye...</h1>
+        <button onclick="startExperience()">Open Your Gift</button>
+    </div>
+
+    <div id="message">Log kehte hain bhagwan har jagah nahi ho sakte, isliye unhone 'Mummy' ko banaya. Meri har mushkil ka hal aur har khushi ki wajah sirf aap hain. Happy Birthday, Mummy!</div>
+
+    <canvas id="canvas"></canvas>
+    <!-- Aapka diya hua music link -->
+    <audio id="bgMusic" src="https://www.image2url.com/r2/default/audio/1781853657216-ca846192-2e19-4cd5-aec1-4b69f13bc8e3.mp3" loop></audio>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        
+        let particles = [];
+        
+        function startExperience() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('bgMusic').play();
+            document.getElementById('message').style.opacity = '1';
+            animate();
+        }
+
+        function animate() {
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.2)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.alpha -= 0.01;
+                ctx.fillStyle = `rgba(255, 215, 0, ${p.alpha})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                if(p.alpha <= 0) particles.splice(i, 1);
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            particles.push({x: e.clientX, y: e.clientY, size: Math.random()*3, alpha: 1});
+        });
+    </script>
+</body>
+</html>
 
