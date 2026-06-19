@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <style>
+        body { margin: 0; background: #000; color: #FFD700; font-family: 'Georgia', serif; overflow: hidden; display: flex; align-items: center; justify-content: center; height: 100vh; }
+        
+        /* Phase 1: The Lotus */
+        #lotus { cursor: pointer; transition: transform 2s; font-size: 80px; }
+        #lotus:hover { transform: scale(1.1); }
+
+        /* Phase 2: Magnetic Text */
+        #message { opacity: 0; transition: opacity 2s, transform 1s; font-size: 32px; text-align: center; }
+        
+        /* Phase 3: Divine Shower */
+        #final-screen { display: none; text-align: center; }
+        .petal { position: absolute; color: gold; font-size: 20px; animation: fall 5s linear infinite; }
+        @keyframes fall { from { top: -10%; } to { top: 110%; } }
+    </style>
+</head>
+<body>
+
+    <!-- Phase 1 -->
+    <div id="lotus" onclick="startPhase2()">🪷</div>
+
+    <!-- Phase 2 -->
+    <div id="message">
+        <p>Log kehte hain bhagwan har jagah nahi ho sakte,</p>
+        <p>isliye unhone 'Mummy' ko banaya.</p>
+        <button onclick="startPhase3()">Aage Badhein</button>
+    </div>
+
+    <!-- Phase 3 -->
+    <div id="final-screen">
+        <h1>Happy Birthday, Mummy!</h1>
+    </div>
+
+    <script>
+        function startPhase2() {
+            document.getElementById('lotus').style.display = 'none';
+            const msg = document.getElementById('message');
+            msg.style.opacity = '1';
+        }
+
+        function startPhase3() {
+            document.getElementById('message').style.display = 'none';
+            document.getElementById('final-screen').style.display = 'block';
+            // Start Petal Rain
+            for(let i=0; i<20; i++) {
+                let p = document.createElement('div');
+                p.innerHTML = '🌸';
+                p.className = 'petal';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(p);
+            }
+        }
+    </script>
+</body>
+</html>
 
