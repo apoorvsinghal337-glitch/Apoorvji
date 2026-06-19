@@ -1,1 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { margin: 0; background: #000; color: #FFD700; font-family: 'Playfair Display', serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .phase { text-align: center; cursor: pointer; }
+        #p1 { width: 80px; height: 80px; background: #FFD700; border-radius: 50%; box-shadow: 0 0 40px #FFD700; animation: pulse 2s infinite; }
+        #p2, #p3 { display: none; width: 80%; font-size: 2rem; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div id="p1" class="phase" onclick="next(2)"></div>
+    
+    <div id="p2" class="phase">
+        <p id="msg"></p>
+        <button onclick="next(3)">Agla Padav</button>
+    </div>
+
+    <div id="p3" class="phase">
+        <h1>Happy Birthday Mummy!</h1>
+        <p>Aap jahan bhi rahein, hamesha khush rahein.</p>
+    </div>
+
+    <audio id="bgMusic" src="https://www.image2url.com/r2/default/audio/1781853657216-ca846192-2e19-4cd5-aec1-4b69f13bc8e3.mp3" loop></audio>
+
+    <script>
+        function next(step) {
+            document.querySelectorAll('.phase').forEach(p => p.style.display = 'none');
+            document.getElementById('p' + step).style.display = 'block';
+            if(step === 2) {
+                document.getElementById('bgMusic').play();
+                type("Log kehte hain bhagwan har jagah nahi ho sakte, isliye unhone 'Mummy' ko banaya...", 0);
+            }
+        }
+        function type(text, i) {
+            if (i < text.length) {
+                document.getElementById('msg').innerHTML += text.charAt(i);
+                setTimeout(() => type(text, i+1), 80);
+            }
+        }
+    </script>
+</body>
+</html>
 
