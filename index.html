@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise for Mummy</title>
+    <style>
+        body { margin: 0; background: #121212; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; text-align: center; }
+        #stage1, #stage2 { transition: opacity 1s; }
+        #stage2 { display: none; padding: 20px; }
+        .gold { color: #FFD700; font-weight: bold; }
+        button { background: transparent; border: 2px solid #FFD700; color: #FFD700; padding: 15px 30px; cursor: pointer; font-size: 18px; border-radius: 5px; transition: 0.3s; }
+        button:hover { background: #FFD700; color: #121212; }
+        #message { font-size: 24px; line-height: 1.6; max-width: 600px; margin-bottom: 20px; }
+        canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div id="stage1">
+        <h1>Mummy, ek surprise hai aapke liye...</h1>
+        <button onclick="startSurprise()">Click Here</button>
+    </div>
+
+    <div id="stage2">
+        <div id="message"></div>
+        <button onclick="celebrate()">Click for Celebration!</button>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const text = "Log kehte hain bhagwan har jagah nahi ho sakte, isliye unhone 'Mummy' ko banaya. Meri har mushkil ka hal aur har khushi ki wajah sirf aap hain. Shukriya mujhe itna pyaar dene ke liye. Aapka har din waisa hi khubsurat ho jaisa aapka dil hai. Janmdin Mubarak, Mummy!";
+        
+        function startSurprise() {
+            document.getElementById('stage1').style.display = 'none';
+            document.getElementById('stage2').style.display = 'block';
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    document.getElementById('message').innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            type();
+        }
+
+        function celebrate() {
+            // Simple Confetti Effect logic can be added here or just show a message
+            alert("Happy Birthday Mummy! Love you!");
+        }
+    </script>
+</body>
+</html>
 
