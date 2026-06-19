@@ -1,1 +1,88 @@
 
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday Mummy</title>
+    <style>
+        body { margin: 0; background: radial-gradient(circle, #332600, #000); color: #FFD700; font-family: 'Georgia', serif; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; }
+        .phase { width: 100%; display: none; }
+        #p1 { display: block; cursor: pointer; }
+        
+        #diya-container { position: relative; display: flex; flex-direction: column; align-items: center; }
+        #diya { font-size: 120px; animation: breathe 4s infinite ease-in-out; filter: drop-shadow(0 0 25px gold); z-index: 2; }
+        .aura { position: absolute; width: 300px; height: 300px; background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%); animation: pulse 4s infinite; border-radius: 50%; z-index: 1; }
+        
+        @keyframes breathe { 0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px gold); } 50% { transform: scale(1.15); filter: drop-shadow(0 0 50px gold); } }
+        @keyframes pulse { 0%, 100% { transform: scale(0.8); opacity: 0.5; } 50% { transform: scale(1.2); opacity: 0.8; } }
+        
+        .sparkle { position: absolute; font-size: 20px; animation: fall 3s linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-10vh); } 100% { transform: translateY(110vh); } }
+    </style>
+</head>
+<body>
+
+    <!-- Yahan apna direct music URL dalein -->
+    <audio id="myMusic" loop>
+        <source src="YAHAN_APNA_MUSIC_LINK_DAALEIN.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Phase 1: Click me music bajega -->
+    <div id="p1" class="phase" onclick="startExperience()">
+        <div id="diya-container">
+            <div class="aura"></div>
+            <div id="diya">🪔</div>
+            <p style="margin-top: 50px; letter-spacing: 2px;">Mummy, Aashirwad ke liye diya chhuyein</p>
+        </div>
+    </div>
+
+    <!-- Phase 2: Typewriter -->
+    <div id="p2" class="phase">
+        <h1 id="typewriter" style="font-size: 2rem; line-height: 1.6; padding: 0 20px; height: 150px;"></h1>
+        <button id="nextBtn" onclick="showFinale()" style="display:none; background:transparent; color:gold; border:2px solid gold; padding:15px 30px; cursor:pointer; font-size:1.2rem;">Celebration Start</button>
+    </div>
+
+    <!-- Phase 3: Finale -->
+    <div id="p3" class="phase">
+        <h1 style="font-size: 4rem; text-shadow: 0 0 40px gold;">HAPPY BIRTHDAY, MUMMY!</h1>
+    </div>
+
+    <script>
+        const msg = "Log kehte hain bhagwan har jagah nahi ho sakte, isliye unhone 'Mummy' ko banaya.";
+        let i = 0;
+
+        function startExperience() {
+            // Music yahan play hoga
+            let audio = document.getElementById('myMusic');
+            audio.play(); 
+            
+            document.getElementById('p1').style.display = 'none';
+            document.getElementById('p2').style.display = 'block';
+            type();
+        }
+
+        function type() {
+            if (i < msg.length) {
+                document.getElementById("typewriter").innerHTML += msg.charAt(i);
+                i++;
+                setTimeout(type, 80);
+            } else {
+                document.getElementById("nextBtn").style.display = "inline-block";
+            }
+        }
+
+        function showFinale() {
+            document.getElementById('p2').style.display = 'none';
+            document.getElementById('p3').style.display = 'block';
+            setInterval(() => {
+                let s = document.createElement('div');
+                s.innerHTML = '✨';
+                s.className = 'sparkle';
+                s.style.left = Math.random() * 100 + 'vw';
+                document.body.appendChild(s);
+                setTimeout(() => s.remove(), 3000);
+            }, 150);
+        }
+    </script>
+</body>
+</html>
