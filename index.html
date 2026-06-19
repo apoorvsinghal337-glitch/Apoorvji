@@ -1,1 +1,88 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Birthday Surprise</title>
+    <style>
+        body { margin: 0; background: #000; color: #FFD700; font-family: 'Georgia', serif; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; text-align: center; }
+        .phase { width: 100%; display: none; }
+        #p1 { display: block; cursor: pointer; }
+
+        /* Rotating Golden Ring */
+        .ring { width: 150px; height: 150px; border: 8px solid transparent; border-top: 8px solid gold; border-bottom: 8px solid gold; border-radius: 50%; animation: rotate 2s linear infinite; margin: auto; display: flex; align-items: center; justify-content: center; font-size: 50px; }
+        @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Golden Firework Animation */
+        .firework { position: absolute; font-size: 30px; animation: burst 1s ease-out forwards; pointer-events: none; }
+        @keyframes burst { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(4); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <!-- Aapka diya hua link -->
+    <audio id="myMusic">
+        <source src="https://mp3tourl.com/audio/1781891772505-0050513f-40ab-40fb-8407-54fb998d2a0d.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Phase 1 -->
+    <div id="p1" class="phase" onclick="startExperience()">
+        <div class="ring">✨</div>
+        <p style="margin-top: 30px; font-size: 1.2rem;">Click the ring to start</p>
+    </div>
+
+    <!-- Phase 2 -->
+    <div id="p2" class="phase">
+        <h1 id="typewriter" style="font-size: 2rem; padding: 20px; height: 150px;"></h1>
+        <button id="nextBtn" onclick="showFinale()" style="display:none; background:transparent; color:gold; border:2px solid gold; padding:15px; cursor:pointer;">Celebration Start</button>
+    </div>
+
+    <!-- Phase 3 -->
+    <div id="p3" class="phase">
+        <h1 style="font-size: 4rem; text-shadow: 0 0 40px gold;">HAPPY BIRTHDAY, MUMMY!</h1>
+    </div>
+
+    <script>
+        const msg = "Log kehte hain bhagwan har jagah nahi ho sakte, isliye unhone 'Mummy' ko banaya.";
+        let i = 0;
+
+        function startExperience() {
+            let audio = document.getElementById('myMusic');
+            
+            // Music play karne ki koshish
+            audio.play().catch(function(error) {
+                console.log("Music play blocked by browser, but continuing...");
+            });
+            
+            document.getElementById('p1').style.display = 'none';
+            document.getElementById('p2').style.display = 'block';
+            type();
+        }
+
+        function type() {
+            if (i < msg.length) {
+                document.getElementById("typewriter").innerHTML += msg.charAt(i);
+                i++;
+                setTimeout(type, 80);
+            } else {
+                document.getElementById("nextBtn").style.display = "inline-block";
+            }
+        }
+
+        function showFinale() {
+            document.getElementById('p2').style.display = 'none';
+            document.getElementById('p3').style.display = 'block';
+            // Golden Firework effect
+            setInterval(() => {
+                let f = document.createElement('div');
+                f.innerHTML = '💥';
+                f.className = 'firework';
+                f.style.left = Math.random() * 90 + 'vw';
+                f.style.top = Math.random() * 90 + 'vh';
+                document.body.appendChild(f);
+                setTimeout(() => f.remove(), 1000);
+            }, 200);
+        }
+    </script>
+</body>
+</html>
 
